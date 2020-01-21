@@ -9,8 +9,8 @@
 import SwiftUI
 
 struct SigninView: View {
-    @State private var email = ""
-    @State private var password = ""
+   
+    @ObservedObject var signInViewModel = SignInViewModel()
     
     var body: some View {
         
@@ -22,12 +22,15 @@ struct SigninView: View {
            //     Spacer()
                 Divider()
                 
-                EmailTextField(email: $email)
-                PasswordTextField(password: $password)
+                EmailTextField(email: $signInViewModel.email)
+                PasswordTextField(password: $signInViewModel.password)
                 
                 SigninButton(action: {
+                    self.signIn()
                     
-                }, label: "Sign in")
+                }, label: TEXT_SIGN_IN).alert(isPresented: $signInViewModel.showAlert) {
+                    Alert(title: Text("Error"), message: Text(signInViewModel.errorString), dismissButton: .default(Text("OK")))
+                }
                 
                 Divider()
                 
@@ -37,6 +40,24 @@ struct SigninView: View {
                 Spacer()
             }
         }.accentColor(.black)
+    }
+    
+    func signIn() {
+        
+        signInViewModel.signin(email: signInViewModel.email, password: signInViewModel.password, completed: { (user) in
+            print(user.email)
+            self.clear()
+        }) { (errorMessage) in
+             print("error: " , errorMessage)
+            self.signInViewModel.showAlert = true
+            self.signInViewModel.errorString = errorMessage
+            self.clear()
+        }
+    }
+    
+    func clear() {
+        self.signInViewModel.email = ""
+        self.signInViewModel.password = ""
     }
 }
 

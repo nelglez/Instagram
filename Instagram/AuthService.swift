@@ -12,9 +12,12 @@ import Firebase
 import FirebaseStorage
 
 class AuthService {
-    static func signupUser(username: String, email: String, password: String, imageData: Data, onSuccess: @escaping (_ user: User) -> Void) {
+    
+    static func signupUser(username: String, email: String, password: String, imageData: Data, onSuccess: @escaping (_ user: User) -> Void, onError: @escaping (_ errorMessage: String) -> Void) {
         Auth.auth().createUser(withEmail: email, password: password) { (authData, error) in
             if error != nil {
+                print(error!.localizedDescription)
+                onError(error!.localizedDescription)
                 return
             }
             guard let userId = authData?.user.uid else { return }
@@ -25,7 +28,7 @@ class AuthService {
             let metaData = StorageMetadata()
             metaData.contentType = "image/jpg"
             
-            StorageService.saveAvatar(userId: userId, username: username, email: email, imageData: imageData, metaData: metaData, storageAvatarRef: storageAvatarUserId, onSuccess: onSuccess)
+            StorageService.saveAvatar(userId: userId, username: username, email: email, imageData: imageData, metaData: metaData, storageAvatarRef: storageAvatarUserId, onSuccess: onSuccess, onError: onError)
             
 //            storageAvatarUserId.putData(imageData, metadata: metaData) { (storageMetadata, error) in
 //                if error != nil {
@@ -69,4 +72,37 @@ class AuthService {
 //            }
         }
     }
+    
+    
+    static func signinUser(email: String, password: String, onSuccess: @escaping (_ user: User) -> Void, onError: @escaping (_ errorMessage: String) -> Void) {
+        
+        Auth.auth().signIn(withEmail: email, password: password) { (authData, error) in
+            if error != nil {
+                print(error!.localizedDescription)
+                onError(error!.localizedDescription)
+                return
+            }
+            
+            guard let userId = authData?.user.uid else { return }
+            
+            let firestoreRoot = Firestore.firestore()
+            let firestoreUsers = firestoreRoot.collection("users")
+            let firestoreUserId = firestoreUsers.document(userId)
+           
+            firestoreUserId.getDocument { (document, error) in
+                if error != nil {
+                    print(error!.localizedDescription)
+                    onError(error!.localizedDescription)
+                    return
+                }
+                if let dict = document?.data() {
+                guard let decodedUser = try? User(fromDictionary: dict) else { return }
+                    onSuccess(decodedUser)
+                }
+            }
+            
+        }
+        
+        }
+    
 }

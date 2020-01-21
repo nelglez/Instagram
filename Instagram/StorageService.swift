@@ -11,16 +11,18 @@ import Firebase
 
 
 class StorageService {
-    static func saveAvatar(userId: String, username: String, email: String, imageData: Data, metaData: StorageMetadata, storageAvatarRef: StorageReference, onSuccess: @escaping (_ user: User) -> Void) {
+    static func saveAvatar(userId: String, username: String, email: String, imageData: Data, metaData: StorageMetadata, storageAvatarRef: StorageReference, onSuccess: @escaping (_ user: User) -> Void, onError: @escaping (_ errorMessage: String) -> Void) {
         storageAvatarRef.putData(imageData, metadata: metaData) { (storageMetadata, error) in
               if error != nil {
                   print(error!.localizedDescription)
+                onError(error!.localizedDescription)
                   return
               }
               
               storageAvatarRef.downloadURL { (url, error) in
                   if error != nil {
                       print(error!.localizedDescription)
+                    onError(error!.localizedDescription)
                       return
                   }
                   
@@ -31,6 +33,7 @@ class StorageService {
                           changeRequest.commitChanges { (error) in
                               if error != nil {
                                   print(error!.localizedDescription)
+                                onError(error!.localizedDescription)
                                   return
                               }
                           }
@@ -50,6 +53,7 @@ class StorageService {
 //                      firestoreUserId.setData(dict)
                     firestoreUserId.setData(dict) { (error ) in
                         if error != nil {
+                            onError(error!.localizedDescription)
                             return
                         }
                         
