@@ -88,7 +88,7 @@ class AuthService {
             let firestoreRoot = Firestore.firestore()
             let firestoreUsers = firestoreRoot.collection("users")
             let firestoreUserId = firestoreUsers.document(userId)
-           
+            
             firestoreUserId.getDocument { (document, error) in
                 if error != nil {
                     print(error!.localizedDescription)
@@ -96,13 +96,13 @@ class AuthService {
                     return
                 }
                 if let dict = document?.data() {
-                guard let decodedUser = try? User(fromDictionary: dict) else { return }
+                    guard let decodedUser = try? User(fromDictionary: dict) else { return }
                     onSuccess(decodedUser)
                 }
             }
             
         }
         
-        }
+    }
     
 }

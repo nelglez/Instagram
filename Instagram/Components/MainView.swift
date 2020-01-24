@@ -11,12 +11,15 @@ import SwiftUI
 struct MainView: View {
     @EnvironmentObject var session: SessionStore
     var body: some View {
-        Button(action: logOut) {
-            Text("Log out")
+        Group {
+            Text((session.userSession == nil) ? "Loading..." : session.userSession!.email)
+            Button(action: logOut) {
+                Text("Log out")
+            }
         }
     }
     
-   private func logOut() {
+    private func logOut() {
         session.logOut()
     }
 }
