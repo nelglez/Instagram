@@ -10,7 +10,14 @@ import SwiftUI
 
 struct HomeView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationView {
+            List {
+                ScrollViewStory()
+                ForEach(1..<20) { _ in
+                    Text("Post")
+                }
+            }.navigationBarTitle("Instagram", displayMode: .inline)
+        }
     }
 }
 
@@ -19,3 +26,5 @@ struct HomeView_Previews: PreviewProvider {
         HomeView()
     }
 }
+
+
