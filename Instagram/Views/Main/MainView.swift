@@ -15,7 +15,7 @@ struct MainView: View {
             HomeView().tabItem {
                 Image(systemName: "house.fill")
             }.tag(0)
-            Text("Search View").tabItem({
+            SearchView().tabItem({
                 Image(systemName: "magnifyingglass")
             }).tag(1)
             Text("Camera View").tabItem({

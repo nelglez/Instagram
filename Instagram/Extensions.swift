@@ -42,3 +42,19 @@ extension Color {
         Color(red: 64/255, green: 93/255, blue: 230/255)
     ]
 }
+//To get an array that contains an array of subarrays. Each subarray will be a row in our grid layout.
+extension Array {
+    func splited(into size: Int) -> [[Element]] {
+        var splittedArray = [[Element]]()
+        
+        for index in 0...self.count {
+            if index % size == 0 && index != 0 {
+                splittedArray.append(Array(self[(index - size)..<index]))
+            } else if (index == self.count) {
+                splittedArray.append(Array(self[index - 1..<index]))
+            }
+        }
+        
+        return splittedArray
+    }
+}
