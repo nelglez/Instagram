@@ -29,14 +29,16 @@ struct SearchView: View {
                             Image(self.displayState[index]).tag(index)
                         }
                     }.pickerStyle(SegmentedPickerStyle()).padding()
+                    VStack(alignment: .leading, spacing: 1) {
                     //Rows
                     ForEach(0..<splittedArray.count) { index in
-                        HStack {
+                        HStack(spacing: 1) {
                             //Columns
                             ForEach(splittedArray[index]) { photo_element in
-                                Image(photo_element.photo).resizable().scaledToFill().frame(width: UIScreen.main.bounds.width / 2, height: UIScreen.main.bounds.width / 2).clipped()//Prevents image to overlap its boundaries.
+                                Image(photo_element.photo).resizable().scaledToFill().frame(width: UIScreen.main.bounds.width / 3, height: UIScreen.main.bounds.width / 3).clipped()//Prevents image to overlap its boundaries.
                             }
                         }
+                    }
                     }
                 }.navigationBarTitle(Text("Discover"), displayMode: .inline)
         }

@@ -24,7 +24,7 @@ struct MainView: View {
             NotificationView().tabItem({
                 Image(systemName: "heart.fill")
             }).tag(3)
-            Text("Profile View").tabItem({
+            ProfileView().tabItem({
                 Image(systemName: "person.fill")
             }).tag(4)
         }.accentColor(.black)
