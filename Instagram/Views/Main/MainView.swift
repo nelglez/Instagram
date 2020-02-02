@@ -18,7 +18,7 @@ struct MainView: View {
             SearchView().tabItem({
                 Image(systemName: "magnifyingglass")
             }).tag(1)
-            Text("Camera View").tabItem({
+            CameraView().tabItem({
                 Image(systemName: "camera.viewfinder")
             }).tag(2)
             Text("Notification View").tabItem({
