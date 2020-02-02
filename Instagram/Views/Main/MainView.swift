@@ -21,7 +21,7 @@ struct MainView: View {
             CameraView().tabItem({
                 Image(systemName: "camera.viewfinder")
             }).tag(2)
-            Text("Notification View").tabItem({
+            NotificationView().tabItem({
                 Image(systemName: "heart.fill")
             }).tag(3)
             Text("Profile View").tabItem({
