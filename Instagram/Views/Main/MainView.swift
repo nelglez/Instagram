@@ -28,12 +28,6 @@ struct MainView: View {
                 Image(systemName: "person.fill")
             }).tag(4)
         }.accentColor(.black)
-//        Group {
-//            Text((session.userSession == nil) ? "Loading..." : session.userSession!.email)
-//            Button(action: logOut) {
-//                Text("Log out")
-//            }
-//        }
     }
     
     private func logOut() {
