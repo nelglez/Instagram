@@ -11,13 +11,48 @@ import SwiftUI
 struct ChatView: View {
     var body: some View {
         NavigationView {
-            ScrollView {
-                ForEach(0..<10) { _ in
-                    VStack(alignment: .leading) {
-                        ChatRow(isCurrentUser: false)
-                        ChatRow(isCurrentUser: true)
-                        ChatRow(isCurrentUser: true, isPhoto: true)
-                    }.padding(.top, 20)
+            VStack {
+                ScrollView {
+                    ForEach(0..<10) { _ in
+                        VStack(alignment: .leading) {
+                            ChatRow(isCurrentUser: false)
+                            ChatRow(isCurrentUser: true)
+                            ChatRow(isCurrentUser: true, isPhoto: true)
+                        }.padding(.top, 20)
+                    }
+                }
+                HStack(spacing: 0) {
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 20).stroke(Color.gray, lineWidth: 1).padding()
+                        HStack(spacing: 10) {
+                            
+                            Button(action: {
+                                
+                            }) {
+                                Image(systemName: "camera.fill").padding(12).foregroundColor(.white).background(Color.blue).clipShape(Circle())
+                            }.padding(.leading, 20)
+                            
+                            TextField("Message...", text: .constant("")).padding(.top, 30).padding(.bottom, 30)
+                            
+                            Button(action: {
+                                
+                            }) {
+                                Image(systemName: "photo").imageScale(.large).foregroundColor(.black)
+                            }
+                            
+                            Button(action: {
+                                
+                            }) {
+                                Image(systemName: "mic.fill").imageScale(.large).foregroundColor(.black)
+                            }
+                            
+                            Button(action: {
+                                
+                            }) {
+                                Image(systemName: "paperplane").imageScale(.large).foregroundColor(.black).padding(.trailing, 30)
+                            }
+                        }
+                    }.frame(height: 60)
                 }
             }.navigationBarTitle("Chat", displayMode: .inline)
         }

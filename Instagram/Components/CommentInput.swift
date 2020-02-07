@@ -24,7 +24,6 @@ struct CommentInput: View {
                 }
             }.frame(height: 70)
         }
-        
     }
 }
 
