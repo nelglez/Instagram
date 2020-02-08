@@ -44,7 +44,14 @@ struct ProfileView: View {
                         }
                     }
                 }.padding(.top, 20)
-            }.navigationBarTitle("Profile", displayMode: .inline)
+                }.navigationBarTitle("Profile", displayMode: .inline).navigationBarItems(leading:
+                    Button(action: {
+                    
+                }) {
+                    NavigationLink(destination: UsersView()) {
+                        Image(systemName: "person.fill").imageScale(.large).foregroundColor(.black)
+                    }
+                })
         }
     }
 }
