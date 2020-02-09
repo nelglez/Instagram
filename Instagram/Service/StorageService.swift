@@ -44,7 +44,7 @@ class StorageService {
                       let firestoreUserId = firestoreUsers.document(userId)
                       //   let userInfo = ["username": self.username, "email": self.email, "profileImageUrl": metaImageUrl]
                       
-                      let user = User(uid: userId, email: email, profileImageUrl: metaImageUrl, username: username, bio: "", keywords: [])
+                    let user = User(uid: userId, email: email, profileImageUrl: metaImageUrl, username: username, bio: "", keywords: username.splitStringToArray())
                       
                       // let dict = user.dict //Old way without encodable extension
                       guard let dict = try? user.toDictionary() else { return }

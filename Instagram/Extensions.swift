@@ -58,3 +58,18 @@ extension Array {
         return splittedArray
     }
 }
+
+extension String {
+    func splitStringToArray() -> [String] {
+        
+        let trimmedText = String(self.filter { !" \n\t\r".contains($0)})
+        var substringArray: [String] = []
+        for (index, _) in trimmedText.enumerated() {
+            let prefixIndex = index + 1
+            let substringPrefix = String(trimmedText.prefix(prefixIndex)).lowercased()
+            print(substringPrefix)
+            substringArray.append(substringPrefix)
+        }
+        return substringArray
+    }
+}
