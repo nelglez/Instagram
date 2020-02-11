@@ -9,6 +9,7 @@
 import SwiftUI
 
 struct ProfileView: View {
+    @EnvironmentObject var session: SessionStore
     var photoArray = [Photo(photo: "photo"), Photo(photo: "photo1"), Photo(photo: "photo2"), Photo(photo: "photo3"), Photo(photo: "photo4"), Photo(photo: "photo5"), Photo(photo: "photo6"), Photo(photo: "photo7"), Photo(photo: "photo8"), Photo(photo: "photo9")]
     @State private var selection = 0
     var displayState = ["square.grid.2x2.fill", "list.dash"]
@@ -51,6 +52,13 @@ struct ProfileView: View {
                     NavigationLink(destination: UsersView()) {
                         Image(systemName: "person.fill").imageScale(.large).foregroundColor(.black)
                     }
+                }, trailing:
+                    Button(action: {
+                        self.session.logOut()
+                }) {
+                    
+                        Image(systemName: "arrow.right.circle.fill").imageScale(.large).foregroundColor(.black)
+                    
                 })
         }
     }
