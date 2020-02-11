@@ -27,7 +27,7 @@ let TEXT_SIGNUP_PASSWORD_REQUIRED = "At least 8 characters required."
 let IMAGE_LOGO = "logo"
 let IMAGE_USER_PLACEHOLDER = "user-placeholder"
 
-/*
+
 class Ref {
     //Storage
     static var STORAGE_ROOT = Storage.storage().reference()
@@ -43,4 +43,4 @@ class Ref {
         return FIRESTORRE_COLLECTION_USERS.document(userId)
     }
 }
-*/
+

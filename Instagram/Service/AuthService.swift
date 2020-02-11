@@ -11,6 +11,15 @@ import FirebaseAuth
 import Firebase
 import FirebaseStorage
 
+
+class PostApi {
+    func getPosts() {
+        
+    }
+}
+
+
+
 class AuthService {
     
     static func signupUser(username: String, email: String, password: String, imageData: Data, onSuccess: @escaping (_ user: User) -> Void, onError: @escaping (_ errorMessage: String) -> Void) {

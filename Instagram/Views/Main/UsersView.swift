@@ -9,31 +9,29 @@
 import SwiftUI
 
 struct UsersView: View {
-    @State private var searchText = ""
+    @ObservedObject var usersViewModel = UsersViewModel()
+   
     
     var body: some View {
         VStack {
-            SearchBar(text: $searchText, onSearchButtonChanged: searchTextDidChange)
+            SearchBar(text: $usersViewModel.searchText, onSearchButtonChanged: usersViewModel.searchTextDidChange)
             List {
-                ForEach(0..<10) { _ in
-                    HStack {
-                        Image("photo1").resizable().clipShape(Circle()).frame(width: 50, height: 50)
-                        VStack(alignment: .leading, spacing: 5) {
-                            Text("David").font(.headline).bold()
-                            Text("iOS Developer").font(.subheadline)
-                        }
-                        
-                    }.padding(10)
+                if !usersViewModel.isLoading {
+                    ForEach(usersViewModel.users, id: \.uid) { user in
+                        HStack {
+                            Image("photo1").resizable().clipShape(Circle()).frame(width: 50, height: 50)
+                            VStack(alignment: .leading, spacing: 5) {
+                                Text(user.username).font(.headline).bold()
+                                Text("iOS Developer").font(.subheadline)
+                            }
+                            
+                        }.padding(10)
+                    }
                 }
-                
             }
         }.navigationBarTitle("Search", displayMode: .inline)
     }
-    func searchTextDidChange() {
-        print("Search Text did change")
-        print(searchText)
-        //Find Users...
-    }
+    
 }
 
 struct UsersView_Previews: PreviewProvider {
