@@ -18,8 +18,6 @@ class PostApi {
     }
 }
 
-
-
 class AuthService {
     
     static func signupUser(username: String, email: String, password: String, imageData: Data, onSuccess: @escaping (_ user: User) -> Void, onError: @escaping (_ errorMessage: String) -> Void) {

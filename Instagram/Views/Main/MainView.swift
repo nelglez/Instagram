@@ -10,6 +10,7 @@ import SwiftUI
 
 struct MainView: View {
     @EnvironmentObject var session: SessionStore
+    
     var body: some View {
         TabView {
             HomeView().tabItem {

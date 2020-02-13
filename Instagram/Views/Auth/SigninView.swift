@@ -11,6 +11,7 @@ import SwiftUI
 struct SigninView: View {
    
     @ObservedObject var signInViewModel = SignInViewModel()
+    @State private var showHome = false
     
     var body: some View {
         
@@ -25,12 +26,15 @@ struct SigninView: View {
                 EmailTextField(email: $signInViewModel.email)
                 PasswordTextField(password: $signInViewModel.password)
                 
-                SigninButton(action: {
-                    self.signIn()
-                    
-                }, label: TEXT_SIGN_IN).alert(isPresented: $signInViewModel.showAlert) {
-                    Alert(title: Text("Error"), message: Text(signInViewModel.errorString), dismissButton: .default(Text("OK")))
+                NavigationLink(destination: HomeView(), isActive: $showHome) {
+                    SigninButton(action: {
+                        self.signIn()
+                        
+                    }, label: TEXT_SIGN_IN).alert(isPresented: $signInViewModel.showAlert) {
+                        Alert(title: Text("Error"), message: Text(signInViewModel.errorString), dismissButton: .default(Text("OK")))
+                    }
                 }
+                
                 
                 Divider()
                 
@@ -46,6 +50,7 @@ struct SigninView: View {
         
         signInViewModel.signin(email: signInViewModel.email, password: signInViewModel.password, completed: { (user) in
             print(user.email)
+            self.showHome = true
             self.clear()
         }) { (errorMessage) in
              print("error: " , errorMessage)

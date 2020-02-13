@@ -10,7 +10,9 @@ import SwiftUI
 
 struct HomeView: View {
     var body: some View {
+        
         NavigationView {
+            
             ScrollView {
                 ScrollViewStory()
                 ForEach(1..<20) { _ in

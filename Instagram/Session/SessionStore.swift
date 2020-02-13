@@ -18,7 +18,9 @@ class SessionStore: ObservableObject {
     var handle: AuthStateDidChangeListenerHandle?
     
     func listenAuthenticationState() {
+         
         handle = Auth.auth().addStateDidChangeListener({ (auth, user) in
+            
             if let user = user {
                 print(user.email)
                  self.isLoggedIn = true
@@ -27,6 +29,7 @@ class SessionStore: ObservableObject {
                 let firestoreUserId = firestoreUsers.document(user.uid)
                 
                 firestoreUserId.getDocument { (document, error) in
+                    
                     if error != nil {
                         print(error!.localizedDescription)
                      //   onError(error!.localizedDescription)
@@ -38,7 +41,6 @@ class SessionStore: ObservableObject {
                         self.userSession = decodedUser
                     }
                 }
-               
             } else {
                 print("isLoggedIn is false")
                 self.isLoggedIn = false
