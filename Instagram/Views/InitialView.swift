@@ -7,13 +7,15 @@
 //
 
 import SwiftUI
+import Firebase
 
 struct InitialView: View {
   @EnvironmentObject var session: SessionStore
     
     var body: some View {
         Group {
-            if session.isLoggedIn {
+            if (Auth.auth().currentUser != nil) {
+           // if session.isLoggedIn {
                 MainView()
             } else {
                 SigninView()

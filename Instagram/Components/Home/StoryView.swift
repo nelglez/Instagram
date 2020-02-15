@@ -19,7 +19,7 @@ struct ScrollViewStory: View {
                         
                     }
                 }
-            }.padding(.top, 10).padding(.leading, 5)
+            }.padding(.top, 15).padding(.leading, 15).padding(.trailing, 15)
             Image(systemName: "plus.circle.fill").position(x: 50, y: -40)
         }.frame(height: 90)
     }

@@ -20,7 +20,7 @@ struct HeaderCell: View {
                 }
                 Spacer()
                 Image(systemName: "ellipsis").padding(.trailing, 16)
-            }.padding(.leading, 15).padding(.trailing, 15)
+            }.padding(.leading, 20).padding(.trailing, 15)
             Image("photo2").resizable().scaledToFit().frame(width: UIScreen.main.bounds.size.width, height: 300).clipped().padding(.leading, -16)
         }
     }
