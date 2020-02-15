@@ -7,11 +7,19 @@
 //
 
 import SwiftUI
+import URLImage
 
 struct ProfileHeader: View {
+    var user: User
+    
     var body: some View {
         HStack {
-            Image("photo").resizable().clipShape(Circle()).scaledToFill().frame(width: 80, height: 80).padding(.leading, 20)
+            
+            URLImage(URL(string: user.profileImageUrl)!, content: {
+                $0.image.resizable().aspectRatio(contentMode: .fill).clipShape(Circle())
+            }).frame(width: 80, height: 80).padding(.leading, 20)
+            
+            
             Spacer()
             VStack {
                 Text("50").font(.headline)
@@ -32,6 +40,6 @@ struct ProfileHeader: View {
 
 struct ProfileHeader_Previews: PreviewProvider {
     static var previews: some View {
-        ProfileHeader()
+        ProfileHeader(user: User(uid: "azdfivndfi", email: "test@test.com", profileImageUrl: "image.com/image.jpg", username: "Test", bio: "Testing", keywords: ["T", "Te", "Tes", "Test"]))
     }
 }

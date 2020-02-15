@@ -9,6 +9,7 @@
 import SwiftUI
 
 struct UserProfileView: View {
+    var userData: User
      var photoArray = [Photo(photo: "photo"), Photo(photo: "photo1"), Photo(photo: "photo2"), Photo(photo: "photo3"), Photo(photo: "photo4"), Photo(photo: "photo5"), Photo(photo: "photo6"), Photo(photo: "photo7"), Photo(photo: "photo8"), Photo(photo: "photo9")]
        @State private var selection = 0
        var displayState = ["square.grid.2x2.fill", "list.dash"]
@@ -16,14 +17,12 @@ struct UserProfileView: View {
        var body: some View {
            let splittedArray = photoArray.splited(into: 3)
            
-           return NavigationView {
-               
-               ScrollView {
+           return ScrollView {
                    
                    VStack(alignment: .leading, spacing: 15) {
-                       ProfileHeader()
+                       ProfileHeader(user: userData)
                       
-                       ProfileInformation()
+                       ProfileInformation(user: userData)
                     
                     HStack(spacing: 5) {
                         FollowButton()
@@ -49,13 +48,13 @@ struct UserProfileView: View {
                        }
                    }.padding(.top, 20)
                }.navigationBarTitle("Lisa", displayMode: .inline)
-           }
+         
        }
 }
 
 struct UserProfileView_Previews: PreviewProvider {
     static var previews: some View {
-        UserProfileView()
+        UserProfileView(userData: User(uid: "azdfivndfi", email: "test@test.com", profileImageUrl: "image.com/image.jpg", username: "Test", bio: "Testing", keywords: ["T", "Te", "Tes", "Test"]))
     }
 }
 

@@ -22,10 +22,10 @@ struct ProfileView: View {
             ScrollView {
                 
                 VStack(alignment: .leading, spacing: 15) {
-                    ProfileHeader()
+                    ProfileHeader(user: session.userSession!)
                     EditProfileButton()
                     
-                    ProfileInformation()
+                    ProfileInformation(user: session.userSession!)
                     
                     Picker(selection: $selection, label: Text("Grid or Table")) {
                         ForEach(0..<displayState.count) { index in
@@ -85,9 +85,10 @@ struct EditProfileButton: View {
 }
 
 struct ProfileInformation: View {
+    var user: User
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
-            Text("Lisa").bold()
+            Text(user.username).bold()
             Text("iOS Developer")
         }.padding(.leading, 20)
     }
