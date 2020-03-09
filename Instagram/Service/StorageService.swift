@@ -64,4 +64,44 @@ class StorageService {
               }
           }
     }
+    
+    static func savePostPhoto(userId: String, caption: String, postId: String, imageData: Data, metaData: StorageMetadata, storagePostRef: StorageReference, onSuccess: @escaping() -> Void, onError: @escaping (_ errorMessage: String) -> Void) {
+            storagePostRef.putData(imageData, metadata: metaData) { (storageMetadata, error) in
+                  if error != nil {
+                      print(error!.localizedDescription)
+                    onError(error!.localizedDescription)
+                      return
+                  }
+                  
+                  storagePostRef.downloadURL { (url, error) in
+                      if error != nil {
+                          print(error!.localizedDescription)
+                        onError(error!.localizedDescription)
+                          return
+                      }
+                      
+                      if let metaImageUrl = url?.absoluteString {
+                         let fireStorePostRef = Ref.FIRESTORE_MY_POSTS_DOCUMENT_USERID(userId: userId).collection("userPosts").document(postId)
+                        let post = Post(caption: caption, likes: [:], location: "", ownerId: userId, postId: postId, username: Auth.auth().currentUser!.displayName!, avatar: Auth.auth().currentUser!.photoURL!.absoluteString, mediaUrl: metaImageUrl, date: Date().timeIntervalSince1970, likeCount: 0)
+                          
+                          // let dict = user.dict //Old way without encodable extension
+                          guard let dict = try? post.toDictionary() else { return }
+    //                      guard let decodedUser = try? User(fromDictionary: dict) else { return }
+    //                      print(decodedUser.username)
+    //                      firestoreUserId.setData(dict)
+                        fireStorePostRef.setData(dict) { (error ) in
+                            if error != nil {
+                                onError(error!.localizedDescription)
+                                return
+                            }
+                            //Save post into the timeline of the logged in user
+                            Ref.FIRESTORE_TIMELINE_DOCUMENT_USERID(userId: userId).collection("timeline").document(postId).setData(dict)
+                            Ref.FIRESTORE_COLLECTION_ALL_POSTS.document(postId).setData(dict)
+                            onSuccess()
+                        }
+                          
+                      }
+                  }
+              }
+        }
 }
