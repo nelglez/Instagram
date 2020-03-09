@@ -37,6 +37,7 @@ struct CameraView: View {
     private func sharePost() {
         cameraViewModel.sharePost(completed: {
             print("Done")
+            self.clear()
         }) { (errorMessage) in
             print("error: " , errorMessage)
             self.cameraViewModel.showAlert = true
